@@ -63,4 +63,14 @@ describe Admin::CategoriesController do
     assert_raise(ActiveRecord::RecordNotFound) { Category.find(test_id) }
   end
   
+  ## assignemt works below
+  describe "Assignment" do
+    it "test create new with get" do
+      post :new, :category => { :name => "corona", :keywords => "medical, 2020", :permalink => "no_link",
+        :description => "epidemic of century"  
+      }
+      assert_response :redirect, :action => :index
+      assert_not_nil Category.find_by_name(:corona)
+    end
+  end
 end

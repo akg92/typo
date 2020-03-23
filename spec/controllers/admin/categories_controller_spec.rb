@@ -75,15 +75,17 @@ describe Admin::CategoriesController do
 
     it "test edit new with get" do
       ## initial create
-      post :new, :category => { :name => "corona", :keywords => "medical, 2020", :permalink => "no_link",
+      post :new, :category => { :name => "corona_1", :keywords => "medical, 2020", :permalink => "no_link",
       :description => "epidemic of century"  
       }
+      ## id
+      id = Category.find_by_name(:corona_1).id
       ## updated 
-      post :edit, :category => { :name => "corona", :keywords => "medical, 2020", :permalink => "no_link2",
+      post :edit, :category => { :name => "corona_1", :keywords => "medical, 2020", :permalink => "no_link2",
         :description => "epidemic of century"  
-      }
+      }, :id => id
       # assert_response :redirect, :action => :index
-      Category.find_by_name(:corona2).permalink.should eq("no_link2")
+      Category.find_by_name(:corona_1).permalink.should eq("no_link2")
     end
   end
 end
